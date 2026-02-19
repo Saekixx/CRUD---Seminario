@@ -22,30 +22,41 @@ SET time_zone = "+00:00";
 --
 
 DELIMITER $$
---
+
 -- Procedimientos
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `editar_producto` (`_id` INTEGER, `_name` VARCHAR(50), `_desc` VARCHAR(50), `_stock` INTEGER)   BEGIN
-		UPDATE tb_product 
-        SET name = _name,
-        	description = _desc,
-        	stock = _stock
-        WHERE id_product = _id;
-    END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminar_producto` (`_id` INTEGER)   BEGIN 
-    	DELETE FROM tb_product WHERE id_product = _id;
-    END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `editar_producto` (IN _id INTEGER, IN _name VARCHAR(50), IN _desc VARCHAR(50), IN _stock INTEGER)
+BEGIN
+    UPDATE tb_product 
+    SET name = _name,
+        description = _desc,
+        stock = _stock
+    WHERE id_product = _id;
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_producto` (`_name` VARCHAR(100), `_desc` VARCHAR(100), `_stock` INTEGER)   BEGIN
-    	INSERT INTO tb_product(name,description,stock) VALUES (_name,_desc,_stock);
-    END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminar_producto` (IN _id INTEGER)
+BEGIN
+    DELETE FROM tb_product WHERE id_product = _id;
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_productos` ()   BEGIN 
-    	SELECT * FROM tb_product;
-    END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_producto` (IN _name VARCHAR(100), IN _desc VARCHAR(100), IN _stock INTEGER)
+BEGIN
+    INSERT INTO tb_product(name, description, stock) VALUES (_name, _desc, _stock);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_productos` ()
+BEGIN
+    SELECT * FROM tb_product;
+END$$
+
+-- NUEVO PROCEDIMIENTO
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_producto` (IN _id INTEGER)
+BEGIN
+    SELECT * FROM tb_product WHERE id_product = _id;
+END$$
 
 DELIMITER ;
+
 
 -- --------------------------------------------------------
 

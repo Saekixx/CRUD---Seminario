@@ -1,14 +1,22 @@
 import { Router } from "express";
-import { listar_producto, crear_producto, eliminar_prodcuto, actualizar_producto } from "../controllers/product.js"
+import {
+  listar_productos,
+  listar_producto,
+  crear_producto,
+  eliminar_prodcuto,
+  actualizar_producto,
+} from "../controllers/product.js";
 
-const router = Router()
+const router = Router();
 
-router.get("/", listar_producto)
+router.get("/", listar_productos);
 
-router.post("/", crear_producto)
+router.get("/:id", listar_producto);
 
-router.put("/:id",actualizar_producto)
+router.post("/", crear_producto);
 
-router.delete("/:id", eliminar_prodcuto)
+router.put("/:id", actualizar_producto);
 
-export default router
+router.delete("/:id", eliminar_prodcuto);
+
+export default router;
